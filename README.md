@@ -33,13 +33,15 @@ Version planning:
 13. ranger does more damage to certain enemies
 14. bridge to connect all pillboxes
 15. touchpad walking for ranger
+16. mineable resources to build structures
 
 3.0 - BETA
 1.	3 maps
 2.	6 enemies
 3.	keep loot after match end
 4.	enemies can deal damage
-5. add an end to the game, a way to win
+5.  add an end to the game, a way to win
+
 
 4.0 - RELEASE
 1.	5 maps
