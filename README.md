@@ -1,5 +1,5 @@
 # 2PlayerTD
-a local Co-op vr tower defence game
+BUG REPORT LINK: https://goo.gl/forms/qLUNok7faxnVMN9t2
 
 Current Version: 2.0
 Version planning:
