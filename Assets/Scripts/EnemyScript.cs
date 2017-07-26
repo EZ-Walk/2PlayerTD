@@ -83,6 +83,19 @@ public class EnemyScript : MonoBehaviour {
                 Destroy(gameObject);
                 GameMaster.gold += 20;
             }
+            else if (gameObject.name.Contains("redBall"))
+            {
+                Debug.Log("You hit a red ball");
+                Destroy(gameObject);
+                GameMaster.gold += 30;
+            }
+            else if (gameObject.name.Contains("Barbarian"))
+            {
+                Debug.Log("You hit a barbarian");
+                Destroy(gameObject);
+                GameMaster.gold += 125;
+            }
+
             GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().increaseEnemiesKilled();
 
             AudioSource destroyEnemy = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().enemyDestroyed;

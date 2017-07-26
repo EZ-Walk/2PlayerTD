@@ -8,36 +8,59 @@ public class WaveSpawner : MonoBehaviour {
     public GameObject enemyV2;
     public GameObject enemyV3;
     public GameObject enemyV4;
-    public Animator barbAnimator;
+
+    public static bool isWaveActive;
+    public int[] enemies;
 
     public Transform spawnPoint;
 
-    public float timeBetweenWaves = 5f;
+    public float timeBetweenWaves = 30f;
     private float countdown = 2f;
     private bool startWave = false;
     private int switcher = 0;
+    private int counter;
 
-    private int waveNumber = 1;
+    private int waveNumber = 0;
     private int amountOfLvl1Enemies;
     private int amountOfLvl2Enemies;
     private int amountOfLvl3Enemies;
     private int amountOfLvl4Enemies;
 
-
-    /*private void Update()
+    private void Start()
     {
-        if (countdown <= 0f)
-            {
-                StartCoroutine(SpawnWave());
-                countdown = timeBetweenWaves;
-            }
-            countdown -= Time.deltaTime;
-    }*/
+        isWaveActive = false;
+        StartCoroutine(timerBetweenWaves());
+        InvokeRepeating("checkForWave", 0, 1f);
+    }
+
+    void checkForWave()
+    {
+        Debug.Log(GameObject.FindGameObjectsWithTag("Enemy").Length);
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            isWaveActive = false;
+            CancelInvoke();
+            StartCoroutine(timerBetweenWaves());
+        }
+    }
+
+    public IEnumerator timerBetweenWaves()
+    {
+        yield return new WaitForSeconds(30f);
+
+        if (!isWaveActive)
+        {
+            StartCoroutine(SpawnWave());
+        }
+    }
 
     public void startWaveButtonPushed()
     {
-        if (GameMaster.overseerReady && GameMaster.rangerReady == true)
+
+        if (GameMaster.overseerReady && GameMaster.rangerReady == true && isWaveActive == false)
         {
+            StopCoroutine(timerBetweenWaves());
+            isWaveActive = true;
             StartCoroutine(SpawnWave());
             GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().increaseWaveCounter();
             AudioSource waveStart = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().waveStart;
@@ -50,6 +73,7 @@ public class WaveSpawner : MonoBehaviour {
 
     public IEnumerator SpawnWave ()
     {
+        waveNumber++;
         Debug.Log("spawning wave");
 
         switch (waveNumber)
@@ -57,8 +81,7 @@ public class WaveSpawner : MonoBehaviour {
             case 1:
                 SpawnEnemy();
                 Debug.Log("case 1");
-                waveNumber++;
-                yield return new WaitForSeconds(.5f);
+                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             case 2:
@@ -67,10 +90,11 @@ public class WaveSpawner : MonoBehaviour {
                 spawnEnemyV3();
                 spawnEnemyV4();
                 Debug.Log("case 2");
-                waveNumber++;
+                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             case 3:
+                Debug.Log("case 3");
                 for (int i = 0; i < 5; i++)
                 {
                     SpawnEnemy();
@@ -93,6 +117,7 @@ public class WaveSpawner : MonoBehaviour {
                 {
                     spawnEnemyV4();
                 }
+                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             case 4: //8 lvl 1 enemies and 6 lvl 2
@@ -116,6 +141,7 @@ public class WaveSpawner : MonoBehaviour {
                 {
                     spawnEnemyV4();
                 }
+                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             case 5:
@@ -140,6 +166,7 @@ public class WaveSpawner : MonoBehaviour {
                 {
                     spawnEnemyV4();
                 }
+                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             default:
@@ -173,11 +200,9 @@ public class WaveSpawner : MonoBehaviour {
                     spawnEnemyV4();
                     yield return new WaitForSeconds(.5f);
                 }
+                InvokeRepeating("checkForWave", 0, 1);
                 break;
         }
-
-        
-        waveNumber++;
     }
 
     void SpawnEnemy ()

@@ -30,13 +30,14 @@ public class GameMaster : MonoBehaviour {
     private int currentWave;
     private int health = 100;
     public static int gold = 100;
-    public static int electricGel = 0;
-    public static int metal = 0;
+    public static int electricGel = 100;
+    public static int metal = 100;
 
     [Header("Ready Up System")]
     public static bool overseerReady = false;
     public static bool rangerReady = false;
     public GameObject overseerReadyIndicator;
+    //false is not ready, true is ready
     public GameObject rangerUIOverseerReadyIndicator;
     public GameObject rangerReadyIndicator;
     public GameObject rangerUIRangerReadyIndicator;
@@ -58,7 +59,7 @@ public class GameMaster : MonoBehaviour {
         clearInfo();
         unreadyOverseer();
         unreadyRanger();
-        VRTK.Examples.Archery.BowAim.powerMultiplier = 20;
+        VRTK.Examples.Archery.BowAim.powerMultiplier = 30;
     }
 
     private void Update()
@@ -72,22 +73,17 @@ public class GameMaster : MonoBehaviour {
         healthCounter.GetComponent<TextMeshProUGUI>().text = health + "";
         rangerUIHealthCounter.GetComponent<TextMeshProUGUI>().text = health + "";
 
-        info.GetComponent<TextMeshProUGUI>().text = "YOU LOST!!";
-
         Gold.GetComponent<TextMeshProUGUI>().text = gold + "";
         rangerUIGold.GetComponent<TextMeshProUGUI>().text = gold + "";
 
         ElectricGel.GetComponent<TextMeshProUGUI>().text = electricGel + "";
         Metal.GetComponent<TextMeshProUGUI>().text = metal + "";
 
-        overseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Overseer: Ready!";
-        rangerUIOverseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Overseer: Ready!";
+        overseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = overseerReady + "";
+        rangerUIOverseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = overseerReady + "";
 
-        rangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Ranger: Ready!";
-        rangerUIRangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Ranger: Ready!";
-
-        rangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Ranger: Not ready";
-        rangerUIRangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Ranger: Not ready";
+        rangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = rangerReady + "";
+        rangerUIRangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = rangerReady + "";
     }
 
 
@@ -115,13 +111,9 @@ public class GameMaster : MonoBehaviour {
     public void builtTurret ()
     {
         gold = gold - shop.costOfCurrentTurret;
+        Debug.Log(shop.costOfCurrentTurret);
         metal -= shop.metalCostOfCurrentTurret;
         electricGel -= shop.electricGelCostOfCurrentTurret;
-    }
-
-    public void builtMiner()
-    {
-        gold -= 100;
     }
 
     public void notEnoughGold()
@@ -144,8 +136,6 @@ public class GameMaster : MonoBehaviour {
     public void unreadyOverseer()
     {
         overseerReady = false;
-        overseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Overseer: Not ready!";
-        rangerUIOverseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Overseer: Not ready!";
         unreadySE.Play();
     }
 
