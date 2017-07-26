@@ -1,7 +1,7 @@
 # 2PlayerTD
 BUG REPORT LINK: https://goo.gl/forms/qLUNok7faxnVMN9t2
 
-Current Version: 2.0
+Current Version: 2.5
 Version planning:
 
 1.0 - Proposal
