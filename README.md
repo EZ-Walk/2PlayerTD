@@ -35,6 +35,7 @@ Version planning:
 15. touchpad walking for ranger
 16. mineable resources to build structures
 17. map rework for touchpad walking
+18. ranger must place mining devices down to farm resources for turrets
 
 3.0 - BETA
 1.	3 maps
