@@ -35,6 +35,8 @@ Version planning:
 15. touchpad walking for ranger
 16. mineable resources to build structures
 17. map rework for touchpad walking
+18. ranger must place down miners to gather resources required for turrets
+19. show cost of items in UI
 
 3.0 - BETA
 1.	3 maps
