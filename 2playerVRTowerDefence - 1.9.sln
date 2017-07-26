@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2playerVRTowerDefence - 1.9", "2playerVRTowerDefence - 1.9.csproj", "{23F6A06E-AF5A-4BE4-F422-606C914F058B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2playerVRTowerDefence - 1.9.Editor", "2playerVRTowerDefence - 1.9.Editor.csproj", "{0A442FF9-F8C7-126C-5757-873DC79C82F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23F6A06E-AF5A-4BE4-F422-606C914F058B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23F6A06E-AF5A-4BE4-F422-606C914F058B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23F6A06E-AF5A-4BE4-F422-606C914F058B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23F6A06E-AF5A-4BE4-F422-606C914F058B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A442FF9-F8C7-126C-5757-873DC79C82F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A442FF9-F8C7-126C-5757-873DC79C82F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A442FF9-F8C7-126C-5757-873DC79C82F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A442FF9-F8C7-126C-5757-873DC79C82F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
