@@ -9,7 +9,7 @@ public class WaveSpawner : MonoBehaviour {
     public GameObject enemyV3;
     public GameObject enemyV4;
 
-    public static bool isWaveActive;
+    public static bool isWaveActive = false;
     public int[] enemies;
 
     public Transform spawnPoint;
@@ -29,11 +29,11 @@ public class WaveSpawner : MonoBehaviour {
     private void Start()
     {
         isWaveActive = false;
-        StartCoroutine(timerBetweenWaves());
+        //StartCoroutine(timerBetweenWaves());
         InvokeRepeating("checkForWave", 0, 1f);
     }
 
-    void checkForWave()
+    /*void checkForWave()
     {
         if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
@@ -51,14 +51,14 @@ public class WaveSpawner : MonoBehaviour {
         {
             StartCoroutine(SpawnWave());
         }
-    }
+    }*/
 
     public void startWaveButtonPushed()
     {
 
         if (GameMaster.overseerReady && GameMaster.rangerReady == true && isWaveActive == false)
         {
-            StopCoroutine(timerBetweenWaves());
+            //StopCoroutine(timerBetweenWaves());
             isWaveActive = true;
             StartCoroutine(SpawnWave());
             GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().increaseWaveCounter();

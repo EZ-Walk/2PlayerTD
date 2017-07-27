@@ -26,7 +26,16 @@
             if (transform.localPosition.z <= restPosition - 0.001)
             {
                 Debug.Log("slide has been pulled back");
-                RealGun.clip = 13;
+                if (gameObject.name == "pistolSlide")
+                {
+                    RealGun.clip = 13;
+
+                }
+                else if (gameObject.name == "rifleSlide")
+                {
+                    RealGun.clip = 2;
+
+                }
             }
 
             /*if (fireTimer == 0 && transform.localPosition.z < restPosition && !IsGrabbed())

@@ -54,6 +54,9 @@ public class GameMaster : MonoBehaviour {
     public AudioSource gameOver;
     public AudioSource unreadySE;
 
+    [Header("Movement Mode")]
+    public bool isWalkingPrefered;
+
 
     private void Start()
     {

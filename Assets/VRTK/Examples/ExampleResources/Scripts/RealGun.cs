@@ -7,9 +7,8 @@
         public static RealGun instance;
         public float bulletSpeed = 200f;
         public float bulletLife = 5f;
-        public int clipSize = 13; //this will not affect the clip size right now, to change it go to the real gun slide script
 
-        public static int clip = 13;
+        public static int clip = 0;
 
         private GameObject bullet;
         private GameObject trigger;
@@ -58,11 +57,11 @@
         public override void StartUsing(VRTK_InteractUse currentUsingObject)
         {
             base.StartUsing(currentUsingObject);
-                FireBullet();
-                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(controllerEvents.gameObject), 0.63f, 0.2f, 0.01f);
-           
-                VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(controllerEvents.gameObject), 0.08f, 0.1f, 0.01f);
-            
+            FireBullet();
+            VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(controllerEvents.gameObject), 0.63f, 0.2f, 0.01f);
+
+            VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(controllerEvents.gameObject), 0.08f, 0.1f, 0.01f);
+
         }
 
         protected override void Awake()
@@ -74,7 +73,7 @@
             trigger = transform.Find("TriggerHolder").gameObject;
         }
 
-        
+
         private void FireBullet()
         {
             clip--;

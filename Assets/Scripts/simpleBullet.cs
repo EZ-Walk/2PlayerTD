@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class simpleBullet : MonoBehaviour {
 
-    private void OnTriggerEnter(Collider collision)
+    public GameObject impactEffect;
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Enemy") == true)
+        if (collision.gameObject.name.Contains("Enemy") == true)
         {
+            GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(effectIns, 2f);
 
-            Debug.Log("health is now " + EnemyScript.health);
-            if (EnemyScript.health <= 0)
-            {
+            collision.gameObject.GetComponent<EnemyScript>().takeHit(2);
+            AudioSource audio = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<AudioSource>();
+            audio.Play();
 
-                Destroy(gameObject);
-                Debug.Log("destroyed the game object in the update function");
-
-            } else
-            {
-                EnemyScript.health -= 50;
-            }
-            Debug.Log("Simple bullet has hit for 50 dmg");
+            Destroy(gameObject); //Destroy bullet
         }
+
     }
 }

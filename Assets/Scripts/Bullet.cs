@@ -51,5 +51,5 @@ public class Bullet : MonoBehaviour {
         audio.Play();
 
         Destroy(gameObject); //Destroy bullet
-    }        
+    }
 }
