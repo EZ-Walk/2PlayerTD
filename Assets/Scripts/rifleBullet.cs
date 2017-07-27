@@ -4,25 +4,19 @@ using UnityEngine;
 
 public class rifleBullet : MonoBehaviour {
 
-    public int speed;
+    VRTK.Examples.RealGun realGun;
 
-    private void Update()
+    private void Start()
     {
-        if (longneck.target == null)
+        realGun = VRTK.Examples.RealGun.instance;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name.Contains("Enemy") == true)
         {
-            Destroy(gameObject);
-            return;
+            collision.gameObject.GetComponent<EnemyScript>().takeHit(3);
+            Debug.Log(collision.gameObject.name + " ");
         }
-
-        Vector3 dir = longneck.target.transform.position - transform.position;
-        float distanceThisFrame = speed * Time.deltaTime;
-
-        if (dir.magnitude <= distanceThisFrame)
-        {
-            Debug.Log("Thats a hit!");
-            return;
-        }
-
-        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
 }

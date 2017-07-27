@@ -4,8 +4,12 @@
 
     public class RealGun : VRTK_InteractableObject
     {
+        public static RealGun instance;
         public float bulletSpeed = 200f;
         public float bulletLife = 5f;
+        public int clipSize = 13; //this will not affect the clip size right now, to change it go to the real gun slide script
+
+        public static int clip = 13;
 
         private GameObject bullet;
         private GameObject trigger;
@@ -73,11 +77,19 @@
         
         private void FireBullet()
         {
-            GameObject bulletClone = Instantiate(bullet, bullet.transform.position, bullet.transform.rotation) as GameObject;
-            bulletClone.SetActive(true);
-            Rigidbody rb = bulletClone.GetComponent<Rigidbody>();
-            rb.AddForce(bullet.transform.forward * bulletSpeed);
-            Destroy(bulletClone, bulletLife);
+            clip--;
+            if (clip > 0)
+            {
+                GameObject bulletClone = Instantiate(bullet, bullet.transform.position, bullet.transform.rotation) as GameObject;
+                bulletClone.SetActive(true);
+                Rigidbody rb = bulletClone.GetComponent<Rigidbody>();
+                rb.AddForce(bullet.transform.forward * bulletSpeed);
+                Destroy(bulletClone, bulletLife);
+            }
+            else
+            {
+                Debug.Log("clip is empty, try reloading by pulling the slide back");
+            }
         }
     }
 }

@@ -35,7 +35,6 @@ public class WaveSpawner : MonoBehaviour {
 
     void checkForWave()
     {
-        Debug.Log(GameObject.FindGameObjectsWithTag("Enemy").Length);
         if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
             isWaveActive = false;

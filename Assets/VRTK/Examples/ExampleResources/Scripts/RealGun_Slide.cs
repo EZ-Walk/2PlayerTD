@@ -23,15 +23,17 @@
         protected override void Update()
         {
             base.Update();
-            if (transform.localPosition.z >= restPosition)
+            if (transform.localPosition.z <= restPosition - 0.001)
             {
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, restPosition);
+                Debug.Log("slide has been pulled back");
+                RealGun.clip = 13;
             }
 
-            if (fireTimer == 0 && transform.localPosition.z < restPosition && !IsGrabbed())
+            /*if (fireTimer == 0 && transform.localPosition.z < restPosition && !IsGrabbed())
             {
                 transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + boltSpeed);
-            }
+                RealGun.clip = 13;
+            }*/
 
             if (fireTimer > 0)
             {

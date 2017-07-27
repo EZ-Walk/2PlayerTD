@@ -34,6 +34,7 @@ public class GameMaster : MonoBehaviour {
     public static int metal = 100;
 
     [Header("Ready Up System")]
+    private bool currentlyReady = false;
     public static bool overseerReady = false;
     public static bool rangerReady = false;
     public GameObject overseerReadyIndicator;
@@ -127,13 +128,27 @@ public class GameMaster : MonoBehaviour {
         info.GetComponent<TextMeshProUGUI>().text = "";
     }
 
-    public void readyOverseer()
+    public void toggleReadyOverseer ()
+    {
+        if (currentlyReady)
+        {
+            unreadyOverseer();
+            currentlyReady = false;
+        }
+        else if (!currentlyReady)
+        {
+            readyOverseer();
+            currentlyReady = true;
+        }
+    }
+
+    void readyOverseer()
     {
         overseerReady = true;
         readyUpSE.Play();
     }
 
-    public void unreadyOverseer()
+    void unreadyOverseer()
     {
         overseerReady = false;
         unreadySE.Play();
@@ -162,7 +177,7 @@ public class GameMaster : MonoBehaviour {
         if (gold >= 200)
         {
             gold -= 200;
-            VRTK.Examples.Archery.BowAim.powerMultiplier = 30;
+            VRTK.Examples.Archery.BowAim.powerMultiplier = 40;
         }
         else
         {

@@ -62,11 +62,21 @@ public class EnemyScript : MonoBehaviour {
         {
             case 0:
                 HP -= 100;
-                Debug.Log("The ranger has hit an enemy");
+                Debug.Log("The ranger has hit an enemy with an arrow");
                 break;
             case 1:
                 HP -= 50;
                 Debug.Log("A turret has hit an enemy");
+                break;
+
+            case 2:
+                //this case is for a pistol bullet
+                HP -= 30;
+                break;
+
+            case 3:
+                //this is the case for the rifle bullet
+                HP -= 200;
                 break;
         }
         if (HP == 0)
