@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battle-Buddies-VR-2.22.Plugins", "Battle-Buddies-VR-2.22.Plugins.csproj", "{9B2D909A-67B4-E3EA-0B07-26EE2A946807}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battle-Buddies-VR-2.22", "Battle-Buddies-VR-2.22.csproj", "{6D6FCA95-4A09-B105-ABDC-60BB49AC1662}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battle-Buddies-VR-2.22.Editor.Plugins", "Battle-Buddies-VR-2.22.Editor.Plugins.csproj", "{30DA9EEC-4809-D527-3D43-304CE93E1045}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battle-Buddies-VR-2.22.Editor", "Battle-Buddies-VR-2.22.Editor.csproj", "{0297DA59-3830-02E2-44BE-E1DFC6266730}"
 EndProject
@@ -11,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B2D909A-67B4-E3EA-0B07-26EE2A946807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B2D909A-67B4-E3EA-0B07-26EE2A946807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B2D909A-67B4-E3EA-0B07-26EE2A946807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B2D909A-67B4-E3EA-0B07-26EE2A946807}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D6FCA95-4A09-B105-ABDC-60BB49AC1662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D6FCA95-4A09-B105-ABDC-60BB49AC1662}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D6FCA95-4A09-B105-ABDC-60BB49AC1662}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D6FCA95-4A09-B105-ABDC-60BB49AC1662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DA9EEC-4809-D527-3D43-304CE93E1045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DA9EEC-4809-D527-3D43-304CE93E1045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DA9EEC-4809-D527-3D43-304CE93E1045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DA9EEC-4809-D527-3D43-304CE93E1045}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0297DA59-3830-02E2-44BE-E1DFC6266730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0297DA59-3830-02E2-44BE-E1DFC6266730}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0297DA59-3830-02E2-44BE-E1DFC6266730}.Release|Any CPU.ActiveCfg = Release|Any CPU

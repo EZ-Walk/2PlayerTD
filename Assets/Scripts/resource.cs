@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class resource : MonoBehaviour {
+
     public int targetResource;
     // 0 = electricGel, 1 = metal
     private bool isMinerPresent = false;
@@ -19,14 +20,32 @@ public class resource : MonoBehaviour {
     public int electricGelHarvestRate = 3;
     public int metalHarvestRate = 1;
 
+    public void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("on trigger enter");
+        minerAttatch = this.transform;
+        Debug.Log("target node is set");
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        Debug.Log("on trigger exit");
+        minerAttatch = null;
+    }
+
+
     public void buildMiner()
     {
         if (isMinerPresent)
         {
             destroyMiner();
-        } else if (GameMaster.gold >= 100)
+        }
+        else if (minerAttatch == null)
         {
-            Miner = Instantiate(minerPrefab, minerAttatch);
+            Debug.Log("miner attatch is null");
+        } else if (GameMaster.gold >= 100 && minerAttatch != null)
+        {
+            Miner = Instantiate(minerPrefab, minerAttatch.transform);
             GameMaster.gold -= 100;
             isMinerPresent = true;
             harvestMult = 1;

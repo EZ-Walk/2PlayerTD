@@ -14,6 +14,7 @@ public class simpleBullet : MonoBehaviour {
             Destroy(effectIns, 2f);
 
             collision.gameObject.GetComponent<EnemyScript>().takeHit(2);
+            Debug.Log("should trigger takeHit(2)");
             AudioSource audio = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<AudioSource>();
             audio.Play();
 

@@ -28,9 +28,9 @@ public class WaveSpawner : MonoBehaviour {
 
     private void Start()
     {
-        isWaveActive = false;
+        //isWaveActive = false;
         //StartCoroutine(timerBetweenWaves());
-        InvokeRepeating("checkForWave", 0, 1f);
+        //InvokeRepeating("checkForWave", 0, 1f);
     }
 
     /*void checkForWave()
@@ -56,10 +56,10 @@ public class WaveSpawner : MonoBehaviour {
     public void startWaveButtonPushed()
     {
 
-        if (GameMaster.overseerReady && GameMaster.rangerReady == true && isWaveActive == false)
+        if (GameMaster.overseerReady && GameMaster.rangerReady == true)
         {
             //StopCoroutine(timerBetweenWaves());
-            isWaveActive = true;
+            //isWaveActive = true;
             StartCoroutine(SpawnWave());
             GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().increaseWaveCounter();
             AudioSource waveStart = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().waveStart;
@@ -80,16 +80,14 @@ public class WaveSpawner : MonoBehaviour {
             case 1:
                 SpawnEnemy();
                 Debug.Log("case 1");
-                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             case 2:
                 SpawnEnemy();
                 spawnEnemyV2();
                 spawnEnemyV3();
-                spawnEnemyV4();
+                //spawnEnemyV4();
                 Debug.Log("case 2");
-                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             case 3:
@@ -114,9 +112,8 @@ public class WaveSpawner : MonoBehaviour {
 
                 for (int i = 0; i < 2; i++)
                 {
-                    spawnEnemyV4();
+                    //spawnEnemyV4();
                 }
-                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             case 4: //8 lvl 1 enemies and 6 lvl 2
@@ -138,9 +135,8 @@ public class WaveSpawner : MonoBehaviour {
 
                 for (int i = 0; i < 4; i++)
                 {
-                    spawnEnemyV4();
+                    //spawnEnemyV4();
                 }
-                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             case 5:
@@ -163,9 +159,8 @@ public class WaveSpawner : MonoBehaviour {
 
                 for (int i = 0; i < 6; i++)
                 {
-                    spawnEnemyV4();
+                    //spawnEnemyV4();
                 }
-                InvokeRepeating("checkForWave", 0, 1);
                 break;
 
             default:
@@ -196,10 +191,9 @@ public class WaveSpawner : MonoBehaviour {
 
                 for (int n = 0; n < amountOfLvl4Enemies + 1; n++)
                 {
-                    spawnEnemyV4();
+                    //spawnEnemyV4();
                     yield return new WaitForSeconds(.5f);
                 }
-                InvokeRepeating("checkForWave", 0, 1);
                 break;
         }
     }

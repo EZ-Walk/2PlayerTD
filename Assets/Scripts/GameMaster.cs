@@ -19,6 +19,7 @@ public class GameMaster : MonoBehaviour {
     public GameObject healthCounter;
     public GameObject rangerUIHealthCounter;
     public GameObject info;
+    public static string Info;
 
     [Header("Shop")]
     public GameObject Gold;
@@ -29,8 +30,8 @@ public class GameMaster : MonoBehaviour {
     private int score;
     private int currentWave;
     private int health = 100;
-    public static int gold = 100;
-    public static int electricGel = 100;
+    public static int gold = 300;
+    public static int electricGel = 200;
     public static int metal = 100;
 
     [Header("Ready Up System")]
@@ -88,6 +89,19 @@ public class GameMaster : MonoBehaviour {
 
         rangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = rangerReady + "";
         rangerUIRangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = rangerReady + "";
+
+        info.GetComponent<TextMeshProUGUI>().text = Info;
+    }
+
+    public IEnumerator clearInfo()
+    {
+        yield return new WaitForSeconds(7f);
+        Info = " ";
+    }
+
+    public void enemyKilled()
+    {
+        enemyDestroyed.Play();
     }
 
 
@@ -109,6 +123,7 @@ public class GameMaster : MonoBehaviour {
         if (health <= 0)
         {
             gameOver.Play();
+            Application.LoadLevelAsync("MainMenu");
         }
     }
 
@@ -118,17 +133,14 @@ public class GameMaster : MonoBehaviour {
         Debug.Log(shop.costOfCurrentTurret);
         metal -= shop.metalCostOfCurrentTurret;
         electricGel -= shop.electricGelCostOfCurrentTurret;
+        Info = "You have built a turret! Resources have been deducted";
+        clearInfo();
     }
 
     public void notEnoughGold()
     {
-        info.GetComponent<TextMeshProUGUI>().text = "You don't have the required resources!";
-    }
-
-    public IEnumerator clearInfo()
-    {
-        yield return new WaitForSeconds(5f);
-        info.GetComponent<TextMeshProUGUI>().text = "";
+        Info = "You don't have the required resources!";
+        clearInfo();
     }
 
     public void toggleReadyOverseer ()
@@ -171,7 +183,7 @@ public class GameMaster : MonoBehaviour {
 
     public void tryToStartWithoutReady ()
     {
-        info.GetComponent<TextMeshProUGUI>().text = "Both players need to ready up before you can start the wave!";
+        Info = "Both players need to ready up before you can start the wave!";
         clearInfo();
     }
 
@@ -184,7 +196,7 @@ public class GameMaster : MonoBehaviour {
         }
         else
         {
-            info.GetComponent<TextMeshProUGUI>().text = "you don't have enough gold!";
+            Info = "you don't have enough gold!";
             clearInfo();
         }
     }
@@ -199,7 +211,7 @@ public class GameMaster : MonoBehaviour {
         }
         else
         {
-            info.GetComponent<TextMeshProUGUI>().text = "you don't have enough gold!";
+            Info = "you don't have enough gold!";
             clearInfo();
         }
     }

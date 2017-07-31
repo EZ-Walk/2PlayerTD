@@ -16,18 +16,18 @@ public class shop : MonoBehaviour {
     public void purchaseStandardTurret()
     {
         Debug.Log("standard turret purchased");
-        costOfCurrentTurret = 100;
-        metalCostOfCurrentTurret = 50;
-        electricGelCostOfCurrentTurret = 75;
+        costOfCurrentTurret = 50;
+        metalCostOfCurrentTurret = 100;
+        electricGelCostOfCurrentTurret = 200;
         buildManager.setTurretToBuild(buildManager.standardTurretPrefab);
     }
 
     public void purchaseTurretV3()
     {
         Debug.Log("turretV3 purchased");
-        costOfCurrentTurret = 300;
-        metalCostOfCurrentTurret = 100;
-        electricGelCostOfCurrentTurret = 250;
+        costOfCurrentTurret = 2000;
+        metalCostOfCurrentTurret = 500;
+        electricGelCostOfCurrentTurret = 2500;
         buildManager.setTurretToBuild(buildManager.andAnotherTurretPrefab);
     }
 
