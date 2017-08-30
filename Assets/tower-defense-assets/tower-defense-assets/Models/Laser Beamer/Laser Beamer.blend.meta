@@ -4,7 +4,21 @@ timeCreated: 1498585650
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Stand
+    100004: Turret
+    400000: //RootNode
+    400002: Stand
+    400004: Turret
+    2300000: Stand
+    2300002: Turret
+    3300000: Stand
+    3300002: Turret
+    4300000: Stand
+    4300002: Turret
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

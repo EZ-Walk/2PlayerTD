@@ -4,21 +4,26 @@ using UnityEngine;
 using TMPro;
 
 public class EnemyScript : MonoBehaviour {
+	public GameData GameData;
 
     public float speed = 10f;
     public static float health;
-    public float HP = 100f;
+    public int HP;
 
-    private float distanceToBullet;
+	public GameObject childPrefab;
+	private Vector3 broodPosition;
+	private Vector3 child1Position;
+	private Vector3 child2Position;
+	private Vector3 child3Position;
+	private Vector3 child4Position;
+
+	private string shooter;
 
     private Transform target;
     private int wavepointIndex = 0;
 
     private void Start()
     {
-        if (gameObject.name.Contains("Snowman")) HP = 200;
-        else if (gameObject.name.Equals("BalloonEnemy")) HP = 100;
-        else if (gameObject.name.Contains("redBall")) HP = 150;
         target = WaypointsScript.points[0];
     }
 
@@ -50,44 +55,96 @@ public class EnemyScript : MonoBehaviour {
 
     public void checkHealth ()
     {
-        if (health <= 0)
+        if (HP <= 0)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log(HP);
         }
     }
 
     public void takeHit(int param)
     {
+        Debug.Log("we are in take hit, param = " + param);
         switch(param)
         {
             case 0:
                 HP -= 100;
-                Debug.Log("The ranger has hit an enemy");
+				shooter = "arrow";
                 break;
             case 1:
                 HP -= 50;
-                Debug.Log("A turret has hit an enemy");
+				shooter = "turret";
+                break;
+
+            case 2:
+                //this case is for a pistol bullet
+                HP -= 30;
+				shooter = "pistol";
+                break;
+
+            case 3:
+                //this is the case for the rifle bullet
+                HP -= 200;
+				shooter = "rifle";
                 break;
         }
-        if (HP == 0)
+
+        if (HP <= 0)
         {
-            if (gameObject.name.Contains("Snowman"))
-            {
-                Debug.Log("you hit a snowman");
-                GameMaster.gold += 50;
-                GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().updateGold();
-            }
-            else if (gameObject.name.Contains("BalloonEnemy"))
-            {
-                Debug.Log("You hit a balloon");
-                GameMaster.gold += 20;
-                GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().updateGold();
-            }
-            GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().increaseEnemiesKilled();
+			if (gameObject.name.Contains("Snowman"))
+			{
+				Debug.Log("A snowman has been killed by a " + shooter);
+				Destroy(gameObject);
+				GameMaster.gold += 25;
+			}
+			else if (gameObject.name.Contains("BalloonEnemy"))
+			{
+				Debug.Log("A ballon has been killed by a " + shooter);
+				Destroy(gameObject);
+				GameMaster.gold += 5;
+			}
+			else if (gameObject.name.Contains("redBall"))
+			{
+				Debug.Log("A red capsule has been killed by a " + shooter);
+				Destroy(gameObject);
+				GameMaster.gold += 15;
+			}
+			else if (gameObject.name.Contains("Barbarian"))
+			{
+				Debug.Log("A barbarian has been killed by a " + shooter);
+				Destroy(gameObject);
+				GameMaster.gold += 125;
+			} else if (gameObject.name.Contains("BroodMother"))
+			{
+				Debug.Log("A broodmother has been killed by a " + shooter);
+				spawnChildren();
+				Destroy(gameObject);
+				GameMaster.gold += 100;
+			}
+
+			GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().increaseEnemiesKilled();
 
             AudioSource destroyEnemy = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().enemyDestroyed;
             destroyEnemy.Play();
             Destroy(this.gameObject);
         }
     }
+
+	private void spawnChildren()
+	{
+		broodPosition = this.transform.position;
+		child1Position = new Vector3(broodPosition.x, broodPosition.y, broodPosition.z + 1f);
+		child2Position = new Vector3(broodPosition.x, broodPosition.y, broodPosition.z - 1f);
+		child3Position = new Vector3(broodPosition.x + 1f, broodPosition.y, broodPosition.z);
+		child4Position = new Vector3(broodPosition.x - 1f, broodPosition.y, broodPosition.z);
+
+		//Spawn children
+		Instantiate(childPrefab, child1Position, this.transform.rotation);
+		Instantiate(childPrefab, child2Position, this.transform.rotation);
+		Instantiate(childPrefab, child3Position, this.transform.rotation);
+		Instantiate(childPrefab, child4Position, this.transform.rotation);
+	}
 }

@@ -38,13 +38,14 @@ public class Node : MonoBehaviour {
             AudioSource turretDestroyed = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().turretDestroyed;
             turretDestroyed.Play();
             GameMaster.gold += 100;
-            GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().updateGold();
+            GameMaster.metal += 25;
+            GameMaster.electricGel += 50;
             return;
         }
 
         GameObject turretToBuild = BuildManager.instance.getTurretToBuild();
 
-        if (GameMaster.gold >= shop.costOfCurrentTurret)
+        if (GameMaster.gold >= shop.costOfCurrentTurret && GameMaster.metal >= shop.metalCostOfCurrentTurret && GameMaster.electricGel >= shop.electricGelCostOfCurrentTurret)
         {
             turret = Instantiate(turretToBuild, transform.position + positionOffset, transform.rotation);
             AudioSource turretPlaced = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>().turretPlaced;

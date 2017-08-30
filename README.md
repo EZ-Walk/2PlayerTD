@@ -1,5 +1,5 @@
 # 2PlayerTD
-BUG REPORT LINK: https://goo.gl/forms/qLUNok7faxnVMN9t2
+a local Co-op vr tower defence game
 
 Current Version: 2.0
 Version planning:
@@ -33,19 +33,14 @@ Version planning:
 13. ranger does more damage to certain enemies
 14. bridge to connect all pillboxes
 15. touchpad walking for ranger
-16. mineable resources to build structures
-17. map rework for touchpad walking
-18. ranger must place down miners to gather resources required for turrets
-19. show cost of items in UI
-20. figure 8 map
+16. map rework for touchpad walking
 
 3.0 - BETA
 1.	3 maps
 2.	6 enemies
 3.	keep loot after match end
 4.	enemies can deal damage
-5.  add an end to the game, a way to win
-
+5. add an end to the game, a way to win
 
 4.0 - RELEASE
 1.	5 maps

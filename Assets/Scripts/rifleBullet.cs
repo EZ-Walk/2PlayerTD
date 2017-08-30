@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class rifleBullet : MonoBehaviour {
 
-    public int speed;
+    public GameObject impactEffect;
 
-    private void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (longneck.target == null)
+        if (collision.gameObject.name.Contains("Enemy") == true)
         {
-            Destroy(gameObject);
-            return;
+            GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+            Destroy(effectIns, 2f);
+
+            collision.gameObject.GetComponent<EnemyScript>().takeHit(3);
+            AudioSource audio = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<AudioSource>();
+            audio.Play();
+
+            Destroy(gameObject); //Destroy bullet
         }
 
-        Vector3 dir = longneck.target.transform.position - transform.position;
-        float distanceThisFrame = speed * Time.deltaTime;
-
-        if (dir.magnitude <= distanceThisFrame)
-        {
-            Debug.Log("Thats a hit!");
-            return;
-        }
-
-        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
 }

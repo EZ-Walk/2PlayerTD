@@ -2,41 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Steamworks;
 
 public class GameMaster : MonoBehaviour {
 
     [Header("Enemies Killed")]
     public GameObject enemiesKilledCounter;
-    public GameObject rangerUIEnemiesKilledCounter;
 
     [Header("Wave Counter")]
     public GameObject waveCounter;
-    public GameObject rangerUIWaveCounter;
+    public GameObject bottomUIWaveCounter;
 
     [Header("Structure Health")]
     public GameObject end;
     public GameObject enemy;
     public GameObject healthCounter;
-    public GameObject rangerUIHealthCounter;
+    public GameObject bottomUIHealthCounter;
     public GameObject info;
-    public GameObject rangerUIInfo;
+    public static string Info;
 
     [Header("Shop")]
     public GameObject Gold;
-    public GameObject rangerUIGold;
+    public GameObject bottomUIGold;
+    public GameObject ElectricGel;
+	public GameObject bottomUIElectricGel;
+    public GameObject Metal;
+	public GameObject bottomUIMetal;
 
     private int score;
     private int currentWave;
     private int health = 100;
-    public static int gold = 100;
+    public static int gold = 99999;
+    public static int electricGel = 99999;
+    public static int metal = 99999;
 
     [Header("Ready Up System")]
+    private bool currentlyReady = false;
     public static bool overseerReady = false;
     public static bool rangerReady = false;
     public GameObject overseerReadyIndicator;
-    public GameObject rangerUIOverseerReadyIndicator;
+    //false is not ready, true is ready
     public GameObject rangerReadyIndicator;
-    public GameObject rangerUIRangerReadyIndicator;
 
     [Header("Audio Sources")]
     public AudioSource readyUpSE;
@@ -47,106 +53,137 @@ public class GameMaster : MonoBehaviour {
     public AudioSource arrowFired;
     public AudioSource enemyReachesEndSE;
     public AudioSource gameOver;
+    public AudioSource unreadySE;
 
+    [Header("Movement Mode")]
+    public bool isWalkingPrefered;
 
     private void Start()
     {
-        updateGold();
-        clearInfo();
-        unreadyOverseer();
-        unreadyRanger();
-        VRTK.Examples.Archery.BowAim.powerMultiplier = 20;
+		clearInfo();
+		overseerReady = false;
+		rangerReady = false;
+        VRTK.Examples.Archery.BowAim.powerMultiplier = 30;
+    }
+
+    private void Update()
+    {
+        enemiesKilledCounter.GetComponent<TextMeshProUGUI>().text = score + "";
+
+        waveCounter.GetComponent<TextMeshProUGUI>().text = currentWave + "";
+        bottomUIWaveCounter.GetComponent<TextMeshProUGUI>().text = currentWave + "";
+
+        healthCounter.GetComponent<TextMeshProUGUI>().text = health + "";
+        bottomUIHealthCounter.GetComponent<TextMeshProUGUI>().text = health + "";
+
+        Gold.GetComponent<TextMeshProUGUI>().text = gold + "";
+        bottomUIGold.GetComponent<TextMeshProUGUI>().text = gold + "";
+
+        ElectricGel.GetComponent<TextMeshProUGUI>().text = electricGel + "";
+		bottomUIElectricGel.GetComponent<TextMeshProUGUI>().text = electricGel + "";
+
+		Metal.GetComponent<TextMeshProUGUI>().text = metal + "";
+		bottomUIMetal.GetComponent<TextMeshProUGUI>().text = metal + "";
+
+		overseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = overseerReady + "";
+
+        rangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = rangerReady + "";
+
+        info.GetComponent<TextMeshProUGUI>().text = Info;
+    }
+
+    public IEnumerator clearInfo()
+    {
+        yield return new WaitForSeconds(7f);
+        Info = " ";
+    }
+
+    public void enemyKilled()
+    {
+        enemyDestroyed.Play();
     }
 
 
     public void increaseEnemiesKilled ()
     {
         score++;
-        enemiesKilledCounter.GetComponent<TextMeshProUGUI>().text = score + "";
-        rangerUIEnemiesKilledCounter.GetComponent<TextMeshProUGUI>().text = score + "";
     }
 
     public void increaseWaveCounter ()
     {
         currentWave++;
-        waveCounter.GetComponent<TextMeshProUGUI>().text = currentWave + "";
-        rangerUIWaveCounter.GetComponent<TextMeshProUGUI>().text = currentWave + "";
     }
 
     public void enemyReachesEnd ()
     {
         health = health - 5;
-        healthCounter.GetComponent<TextMeshProUGUI>().text = health + "";
-        rangerUIHealthCounter.GetComponent<TextMeshProUGUI>().text = health + "";
         enemyReachesEndSE.Play();
 
         if (health <= 0)
         {
             gameOver.Play();
-            info.GetComponent<TextMeshProUGUI>().text = "YOU LOST!!";
-            rangerUIInfo.GetComponent<TextMeshProUGUI>().text = "YOU LOST!!";
+            Application.LoadLevelAsync("MainMenu");
         }
     }
 
     public void builtTurret ()
     {
         gold = gold - shop.costOfCurrentTurret;
-        updateGold();
-    }
-
-    public void updateGold ()
-    {
-        Gold.GetComponent<TextMeshProUGUI>().text = gold + "";
-        rangerUIGold.GetComponent<TextMeshProUGUI>().text = gold + "";
+        Debug.Log(shop.costOfCurrentTurret);
+        metal -= shop.metalCostOfCurrentTurret;
+        electricGel -= shop.electricGelCostOfCurrentTurret;
+        Info = "You have built a turret! Resources have been deducted";
+        clearInfo();
     }
 
     public void notEnoughGold()
     {
-        info.GetComponent<TextMeshProUGUI>().text = "you dont have enough gold!";
+        Info = "You don't have the required resources!";
+        clearInfo();
     }
 
-    public void clearInfo()
+    public void toggleReadyOverseer ()
     {
-        info.GetComponent<TextMeshProUGUI>().text = "";
-        rangerUIInfo.GetComponent<TextMeshProUGUI>().text = "";
+        if (currentlyReady)
+        {
+            unreadyOverseer();
+            currentlyReady = false;
+        }
+        else if (!currentlyReady)
+        {
+            readyOverseer();
+            currentlyReady = true;
+        }
     }
 
-    public void readyOverseer()
+    void readyOverseer()
     {
         overseerReady = true;
-        overseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Overseer: Ready!";
-        rangerUIOverseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Overseer: Ready!";
         readyUpSE.Play();
     }
 
-    public void unreadyOverseer()
+    void unreadyOverseer()
     {
         overseerReady = false;
-        overseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Overseer: Not ready!";
-        rangerUIOverseerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Overseer: Not ready!";
-        readyUpSE.Play();
+        unreadySE.Play();
     }
 
     public void readyRanger()
     {
         rangerReady = true;
-        rangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Ranger: Ready!";
-        rangerUIRangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Ranger: Ready!";
         readyUpSE.Play();
     }
 
     public void unreadyRanger ()
     {
         rangerReady = false;
-        rangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Ranger: Not ready";
-        rangerUIRangerReadyIndicator.GetComponent<TextMeshProUGUI>().text = "Ranger: Not ready";
-        readyUpSE.Play();
+        unreadySE.Play();
     }
 
     public void tryToStartWithoutReady ()
     {
-        info.GetComponent<TextMeshProUGUI>().text = "Both players need to ready up before you can start the wave!";
-        rangerUIInfo.GetComponent<TextMeshProUGUI>().text = "Both players need to ready up before you can start the wave!";
+        Info = "Both players need to ready up before you can start the wave!";
+        clearInfo();
     }
 
     public void buyBowV2()
@@ -154,12 +191,12 @@ public class GameMaster : MonoBehaviour {
         if (gold >= 200)
         {
             gold -= 200;
-            updateGold();
-            VRTK.Examples.Archery.BowAim.powerMultiplier = 30;
+            VRTK.Examples.Archery.BowAim.powerMultiplier = 40;
         }
         else
         {
-            info.GetComponent<TextMeshProUGUI>().text = "you don't have enough gold!";
+            Info = "you don't have enough gold!";
+            clearInfo();
         }
     }
 
@@ -168,13 +205,13 @@ public class GameMaster : MonoBehaviour {
         if (gold >= 500)
         {
             gold -= 500;
-            updateGold();
             VRTK.Examples.Archery.BowAim.powerMultiplier = 50;
             Debug.Log("power mult is " + VRTK.Examples.Archery.BowAim.powerMultiplier);
         }
         else
         {
-            info.GetComponent<TextMeshProUGUI>().text = "you don't have enough gold!";
+            Info = "you don't have enough gold!";
+            clearInfo();
         }
     }
 }

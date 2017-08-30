@@ -47,11 +47,9 @@ public class Bullet : MonoBehaviour {
         Destroy(effectIns, 2f);
 
         target.GetComponent<EnemyScript>().takeHit(1);
-        Debug.Log("trying to play sound");
         AudioSource audio = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<AudioSource>();
         audio.Play();
-        Debug.Log("did it play?");
 
         Destroy(gameObject); //Destroy bullet
-    }        
+    }
 }
