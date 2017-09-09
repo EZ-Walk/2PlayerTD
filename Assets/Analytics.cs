@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Steamworks;
 
 public class GameData : MonoBehaviour {
 
@@ -34,10 +35,6 @@ public class GameData : MonoBehaviour {
 		gd.WriteLine();
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {

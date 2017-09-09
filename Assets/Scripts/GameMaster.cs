@@ -32,9 +32,9 @@ public class GameMaster : MonoBehaviour {
     private int score;
     private int currentWave;
     private int health = 100;
-    public static int gold = 99999;
-    public static int electricGel = 99999;
-    public static int metal = 99999;
+    public static int gold = 300;
+    public static int electricGel = 100;
+    public static int metal = 100;
 
     [Header("Ready Up System")]
     private bool currentlyReady = false;
@@ -55,15 +55,19 @@ public class GameMaster : MonoBehaviour {
     public AudioSource gameOver;
     public AudioSource unreadySE;
 
-    [Header("Movement Mode")]
-    public bool isWalkingPrefered;
+	[Header("Steam API")]
+	public string leaderboardName = "Leaderboard";
+	private ELeaderboardSortMethod ELeaderboardSortMethodDescending;
+	private ELeaderboardDisplayType ELeaderboardDisplayTypeNumeric;
 
-    private void Start()
+	private void Start()
     {
 		clearInfo();
 		overseerReady = false;
 		rangerReady = false;
         VRTK.Examples.Archery.BowAim.powerMultiplier = 30;
+		SteamUserStats.FindOrCreateLeaderboard(leaderboardName, ELeaderboardSortMethodDescending, ELeaderboardDisplayTypeNumeric);
+		Debug.Log("leaderboard created with name, sort method, display type" + leaderboardName + " " + ELeaderboardSortMethodDescending + " " + ELeaderboardDisplayTypeNumeric);
     }
 
     private void Update()

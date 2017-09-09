@@ -31,6 +31,7 @@ public class WaveSpawner : MonoBehaviour {
     private int amountOfLvl2Enemies;
     private int amountOfLvl3Enemies;
     private int amountOfLvl4Enemies;
+	private int amountOfBroodMothers;
 
     private void Start()
     {
@@ -76,10 +77,13 @@ public class WaveSpawner : MonoBehaviour {
         }
     }
 
+	public void DispatchHits();
+
     public IEnumerator SpawnWave ()
     {
         waveNumber++;
         Debug.Log("spawning wave");
+
 
         switch (waveNumber)
         {
@@ -183,6 +187,7 @@ public class WaveSpawner : MonoBehaviour {
                 amountOfLvl2Enemies = waveNumber * 2 * Random.Range(1, 3);
                 amountOfLvl3Enemies = waveNumber * 2 * Random.Range(1, 2);
                 amountOfLvl4Enemies = waveNumber * Random.Range(1, 2);
+				amountOfBroodMothers = waveNumber * Random.Range(1, 2);
                 for (int i = 0; i < amountOfLvl1Enemies + 1; i++)
                 {
                     SpawnEnemy();
